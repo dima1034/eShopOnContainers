@@ -17,7 +17,6 @@ namespace eShopConContainers.WebSPA
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
              .UseStartup<Startup>()
-                .UseHealthChecks("/hc")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
@@ -28,8 +27,8 @@ namespace eShopConContainers.WebSPA
                     builder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                     builder.AddConsole();
                     builder.AddDebug();
+                    builder.AddAzureWebAppDiagnostics();
                 })
-                .UseApplicationInsights()
                 .UseSerilog((builderContext, config) =>
                 {
                     config
